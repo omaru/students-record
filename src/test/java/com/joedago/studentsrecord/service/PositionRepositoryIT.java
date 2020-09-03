@@ -14,13 +14,13 @@ import org.springframework.web.server.ResponseStatusException;
 import com.joedago.studentsrecord.Application;
 import com.joedago.studentsrecord.models.PositionResponse;
 import com.joedago.studentsrecord.persistence.entities.Student;
-import com.joedago.studentsrecord.services.PositionService;
+import com.joedago.studentsrecord.services.PositionRepository;
 
 @SpringBootTest(classes = Application.class)
-class PositionServiceTest {
+class PositionRepositoryIT {
 
 	@Autowired
-	private PositionService positionService;
+	private PositionRepository positionRepository;
 	
 	@Test
 	void testGetPositionFromStudent() {
@@ -28,7 +28,7 @@ class PositionServiceTest {
 		student.setStreetAddress1("1600 Pennsylvania Ave NW");
 		student.setCity("Washington");
 		student.setState("DC");
-		PositionResponse response = positionService.getPositionFromStudent(student);
+		PositionResponse response = positionRepository.getPositionFromStudent(student);
 		assertNotNull(response);
 		assertNotNull(response.getData());
 		assertFalse(response.getData().isEmpty());
@@ -38,7 +38,7 @@ class PositionServiceTest {
 	void testGetPositionWithNoAddress() {
 		Student student = new Student();
 		try {
-			positionService.getPositionFromStudent(student);
+			positionRepository.getPositionFromStudent(student);
 			fail("should throw an exception");
 		} catch(ResponseStatusException ex) {
 			assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, ex.getStatus());

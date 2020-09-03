@@ -7,6 +7,7 @@ import static com.joedago.studentsrecord.controllers.ControllerConstants.STUDENT
 
 import javax.validation.Valid;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
@@ -24,10 +25,11 @@ import com.joedago.studentsrecord.services.StudentService;
 
 @RestController
 @RequestMapping(STUDENT_URI)
+@RequiredArgsConstructor
 public class StudentController {
 	
 	@Autowired
-	StudentService studentService;
+	private final StudentService studentService;
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)

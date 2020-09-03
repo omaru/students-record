@@ -1,16 +1,17 @@
 package com.joedago.studentsrecord.models;
 
+import lombok.*;
+
+import javax.validation.Valid;
 import java.util.List;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class PositionResponse {
-	
-	private List<DataResponse> data;
 
-	public List<DataResponse> getData() {
-		return data;
-	}
-	public void setData(List<DataResponse> data) {
-		this.data = data;
-	}
+	@Singular("data")
+	private List<DataResponse> data;
 
 }

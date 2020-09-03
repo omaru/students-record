@@ -6,7 +6,7 @@ import com.joedago.studentsrecord.persistence.entities.Student;
 
 public interface StudentRepository extends JpaRepository<Student, Integer>  {
 
-	public Student findByEmail(String email);
-	public Student findByStudentId(Integer studentId);
+	 Student findByEmail(String email);
+	 Student findByStudentId(long studentId);
 
 }

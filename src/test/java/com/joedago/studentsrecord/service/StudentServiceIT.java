@@ -1,7 +1,7 @@
 package com.joedago.studentsrecord.service;
 
-import static com.joedago.studentsrecord.utils.ModelsGenerator.STUDENT_ID_1;
-import static com.joedago.studentsrecord.utils.ModelsGenerator.STUDENT_ID_2;
+import static com.joedago.studentsrecord.util.ModelsGenerator.STUDENT_ID_1;
+import static com.joedago.studentsrecord.util.ModelsGenerator.STUDENT_ID_2;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -20,24 +20,24 @@ import com.joedago.studentsrecord.models.PositionResponse;
 import com.joedago.studentsrecord.models.StudentSimilarity;
 import com.joedago.studentsrecord.persistence.entities.Student;
 import com.joedago.studentsrecord.persistence.repositories.StudentRepository;
-import com.joedago.studentsrecord.services.PositionService;
+import com.joedago.studentsrecord.services.PositionRepository;
 import com.joedago.studentsrecord.services.impl.StudentServiceImpl;
-import com.joedago.studentsrecord.utils.ModelsGenerator;
+import com.joedago.studentsrecord.util.ModelsGenerator;
 
 @SpringBootTest
-class StudentServiceTest {
+class StudentServiceIT {
 
 	@Mock
-	PositionService positionService;
+	private PositionRepository positionRepository;
 	@Mock
-	StudentRepository studentRepository;
+	private StudentRepository studentRepository;
 	@InjectMocks
-	StudentServiceImpl studentService;
+	private StudentServiceImpl studentService;
 	
 	@BeforeEach
 	public void setup() {
 		PositionResponse positionResponse = ModelsGenerator.generatePositionResponse();
-		when(positionService.getPositionFromStudent(Mockito.any(Student.class))).thenReturn(positionResponse);
+		when(positionRepository.getPositionFromStudent(Mockito.any(Student.class))).thenReturn(positionResponse);
 	}
 	
 	@Test

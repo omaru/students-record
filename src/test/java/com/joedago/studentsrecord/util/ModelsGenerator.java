@@ -1,4 +1,4 @@
-package com.joedago.studentsrecord.utils;
+package com.joedago.studentsrecord.util;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -20,21 +20,19 @@ public class ModelsGenerator {
 		return generateValidStudent(STUDENT_ID_1);
 	}
 	
-	public static Student generateValidStudent(Integer studentId) {
-		Student student = new Student();
-		student.setStudentId(studentId);
-		student.setFirstName("name");
-		student.setLastName("lastname");
-		student.setEmail("email@email.com");
-		student.setState("state");
-		Calendar date = Calendar.getInstance();
-		date.add(Calendar.YEAR, -STUDENT_AGE);
-		student.setBirthDate(new Date(date.getTimeInMillis()));
-		return student;
+	public static Student generateValidStudent(final long studentId) {
+		final Calendar birthDate = Calendar.getInstance();
+		birthDate.add(Calendar.YEAR, -STUDENT_AGE);
+		return Student.builder().studentId(studentId)
+				.firstName("name")
+				.lastName("lastname")
+				.email("email")
+				.state("state")
+				.birthDate(new Date(birthDate.getTimeInMillis())).build();
 	}
 	
 	public static Student generate75SimilarityStudent() {
-		Student student = generateValidStudent();
+		final Student student = generateValidStudent();
 		student.setFirstName("othername");
 		return student;
 	}

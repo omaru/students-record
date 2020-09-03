@@ -2,6 +2,7 @@ package com.joedago.studentsrecord.services.impl;
 
 import java.util.Calendar;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -13,17 +14,18 @@ import com.joedago.studentsrecord.models.PositionResponse;
 import com.joedago.studentsrecord.models.StudentSimilarity;
 import com.joedago.studentsrecord.persistence.entities.Student;
 import com.joedago.studentsrecord.persistence.repositories.StudentRepository;
-import com.joedago.studentsrecord.services.PositionService;
+import com.joedago.studentsrecord.services.PositionRepository;
 import com.joedago.studentsrecord.services.StudentService;
 
 @Service
+@RequiredArgsConstructor
 public class StudentServiceImpl implements StudentService {
 	
 	@Autowired
-	StudentRepository studentRepository;
+	private final StudentRepository studentRepository;
 	
 	@Autowired
-	PositionService positionService;
+	private final PositionRepository positionRepository;
 
 	@Override
 	public void saveStudent(Student student) {
@@ -85,7 +87,7 @@ public class StudentServiceImpl implements StudentService {
 	}
 	
 	private void setPosition(Student student) {
-		PositionResponse position = positionService.getPositionFromStudent(student);
+		PositionResponse position = positionRepository.getPositionFromStudent(student);
 		if(position != null && position.getData() != null && !position.getData().isEmpty()) {
 			DataResponse data = position.getData().get(0);
 			student.setLatitude(data.getLatitude());
