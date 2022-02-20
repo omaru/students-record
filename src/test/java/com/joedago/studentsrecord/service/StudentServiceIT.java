@@ -7,6 +7,13 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.when;
 
+import com.joedago.studentsrecord.models.PositionResponse;
+import com.joedago.studentsrecord.models.StudentSimilarity;
+import com.joedago.studentsrecord.persistence.entities.Student;
+import com.joedago.studentsrecord.persistence.repositories.StudentRepository;
+import com.joedago.studentsrecord.services.PositionRepository;
+import com.joedago.studentsrecord.services.impl.StudentServiceImpl;
+import com.joedago.studentsrecord.util.ModelsGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -15,14 +22,6 @@ import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
-
-import com.joedago.studentsrecord.models.PositionResponse;
-import com.joedago.studentsrecord.models.StudentSimilarity;
-import com.joedago.studentsrecord.persistence.entities.Student;
-import com.joedago.studentsrecord.persistence.repositories.StudentRepository;
-import com.joedago.studentsrecord.services.PositionRepository;
-import com.joedago.studentsrecord.services.impl.StudentServiceImpl;
-import com.joedago.studentsrecord.util.ModelsGenerator;
 
 @SpringBootTest
 class StudentServiceIT {
@@ -33,13 +32,13 @@ class StudentServiceIT {
 	private StudentRepository studentRepository;
 	@InjectMocks
 	private StudentServiceImpl studentService;
-	
+
 	@BeforeEach
 	public void setup() {
 		PositionResponse positionResponse = ModelsGenerator.generatePositionResponse();
 		when(positionRepository.getPositionFromStudent(Mockito.any(Student.class))).thenReturn(positionResponse);
 	}
-	
+
 	@Test
 	void testSaveStudent() {
 		when(studentRepository.findByStudentId(Mockito.anyInt())).thenReturn(null);
@@ -47,7 +46,7 @@ class StudentServiceIT {
 		Student student = ModelsGenerator.generateValidStudent();
 		studentService.saveStudent(student);
 	}
-	
+
 	@Test
 	void testSaveStudentExistentId() {
 		Student student = ModelsGenerator.generateValidStudent();
@@ -55,11 +54,11 @@ class StudentServiceIT {
 		try {
 			studentService.saveStudent(student);
 			fail();
-		} catch(ResponseStatusException ex) {
+		} catch (ResponseStatusException ex) {
 			assertEquals(HttpStatus.BAD_REQUEST, ex.getStatus());
 		}
 	}
-	
+
 	@Test
 	void testSaveStudentExistentEmail() {
 		Student student = ModelsGenerator.generateValidStudent();
@@ -68,11 +67,11 @@ class StudentServiceIT {
 		try {
 			studentService.saveStudent(student);
 			fail();
-		} catch(ResponseStatusException ex) {
+		} catch (ResponseStatusException ex) {
 			assertEquals(HttpStatus.BAD_REQUEST, ex.getStatus());
 		}
 	}
-	
+
 	@Test
 	void testCompareStutendsSimilarity() {
 		Student student1 = ModelsGenerator.generateValidStudent(STUDENT_ID_1);
@@ -83,7 +82,7 @@ class StudentServiceIT {
 		assertNotNull(similarity);
 		assertEquals(100, similarity.getSimilarityPercentage());
 	}
-	
+
 	@Test
 	void testCompareStutends75Similarity() {
 		Student student1 = ModelsGenerator.generateValidStudent(STUDENT_ID_1);
@@ -94,7 +93,7 @@ class StudentServiceIT {
 		assertNotNull(similarity);
 		assertEquals(75, similarity.getSimilarityPercentage());
 	}
-	
+
 	@Test
 	void testCompareStutends50Similarity() {
 		Student student1 = ModelsGenerator.generateValidStudent(STUDENT_ID_1);
@@ -105,7 +104,7 @@ class StudentServiceIT {
 		assertNotNull(similarity);
 		assertEquals(50, similarity.getSimilarityPercentage());
 	}
-	
+
 	@Test
 	void testCompareStutends25Similarity() {
 		Student student1 = ModelsGenerator.generateValidStudent(STUDENT_ID_1);
@@ -116,7 +115,7 @@ class StudentServiceIT {
 		assertNotNull(similarity);
 		assertEquals(25, similarity.getSimilarityPercentage());
 	}
-	
+
 	@Test
 	void testCompareStutends0Similarity() {
 		Student student1 = ModelsGenerator.generateValidStudent(STUDENT_ID_1);
@@ -127,7 +126,7 @@ class StudentServiceIT {
 		assertNotNull(similarity);
 		assertEquals(0, similarity.getSimilarityPercentage());
 	}
-	
+
 	@Test
 	void testStudent1DoesntExists() {
 		Student student1 = ModelsGenerator.generateValidStudent(STUDENT_ID_1);
@@ -136,11 +135,11 @@ class StudentServiceIT {
 		try {
 			studentService.compareStudents(STUDENT_ID_1, STUDENT_ID_2);
 			fail();
-		} catch(ResponseStatusException ex) {
+		} catch (ResponseStatusException ex) {
 			assertEquals(HttpStatus.BAD_REQUEST, ex.getStatus());
 		}
 	}
-	
+
 	@Test
 	void testStudent2DoesntExists() {
 		Student student2 = ModelsGenerator.generateValidStudent(STUDENT_ID_2);
@@ -149,7 +148,7 @@ class StudentServiceIT {
 		try {
 			studentService.compareStudents(STUDENT_ID_1, STUDENT_ID_2);
 			fail();
-		} catch(ResponseStatusException ex) {
+		} catch (ResponseStatusException ex) {
 			assertEquals(HttpStatus.BAD_REQUEST, ex.getStatus());
 		}
 	}

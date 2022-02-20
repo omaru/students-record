@@ -1,12 +1,11 @@
 package com.joedago.studentsrecord.persistence.repositories;
 
+import com.joedago.studentsrecord.persistence.entities.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.joedago.studentsrecord.persistence.entities.Student;
+public interface StudentRepository extends JpaRepository<Student, Integer> {
 
-public interface StudentRepository extends JpaRepository<Student, Integer>  {
+	Student findByEmail(String email);
 
-	 Student findByEmail(String email);
-	 Student findByStudentId(long studentId);
-
+	Student findByStudentId(long studentId);
 }

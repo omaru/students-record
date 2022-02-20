@@ -18,5 +18,4 @@ public class PositionStackProperties {
 	private String url;
 	private String token;
 	private String forward;
-	
 }

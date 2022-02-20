@@ -5,5 +5,5 @@ import com.joedago.studentsrecord.persistence.entities.Student;
 
 public interface PositionRepository {
 
-	public PositionResponse getPositionFromStudent(Student student); 
+	public PositionResponse getPositionFromStudent(Student student);
 }

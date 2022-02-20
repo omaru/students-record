@@ -3,7 +3,6 @@ package com.joedago.studentsrecord.exceptions;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.stream.Collectors;
-
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,16 +25,16 @@ public class CustomResponseExceptionHandler extends ResponseEntityExceptionHandl
 		response.setDate(new Timestamp(Calendar.getInstance().getTimeInMillis()));
 		return new ResponseEntity<>(response, ex.getStatus());
 	}
-	
+
 	@Override
-	public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, 
-			HttpHeaders headers, HttpStatus status, WebRequest request) {
+	public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers,
+			HttpStatus status, WebRequest request) {
 		ExceptionResponse response = new ExceptionResponse();
 		response.setHttpStatus(HttpStatus.BAD_REQUEST.value());
 		response.setDate(new Timestamp(Calendar.getInstance().getTimeInMillis()));
 		response.setErrors(ex.getBindingResult().getAllErrors().stream()
-				.map(error ->((FieldError) error).getField() + " - " +  error.getDefaultMessage())
+				.map(error -> ((FieldError) error).getField() + " - " + error.getDefaultMessage())
 				.collect(Collectors.toList()));
-	    return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 	}
 }

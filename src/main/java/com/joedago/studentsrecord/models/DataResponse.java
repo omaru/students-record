@@ -28,5 +28,4 @@ public class DataResponse {
 	private String countryCode;
 	private String continent;
 	private String label;
-	
 }
