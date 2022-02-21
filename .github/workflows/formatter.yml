@@ -2,7 +2,7 @@ name: Format Source
 
 on:
   push:
-    branches: [ * ]
+    branches: [ '*' ]
 
 jobs:
   build:
