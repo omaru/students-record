@@ -25,6 +25,7 @@ eclise/
 /home/
 .idea
 *iml
+.vscode/
 # External tool builders
 .externalToolBuilders/
 
@@ -79,3 +80,4 @@ eclise/
 .sts4-cache/
 
 # End of https://www.toptal.com/developers/gitignore/api/eclipse
+pom.xml
