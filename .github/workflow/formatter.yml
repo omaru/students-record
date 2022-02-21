@@ -1,8 +1,9 @@
-name: Test Code
+name: Format Source
 
 on:
   push:
     branches: [ '*' ]
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -14,5 +15,5 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-    - name: Run Test
-      run: mvn verify --file pom.xml
+    - name: Format Sourcecode
+      run: mvn spottless:apply
