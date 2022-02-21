@@ -15,5 +15,7 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+    - name: Package build
+      run: mvn package --file pom.xml
     - name: Format Sourcecode
       run: mvn spottless:apply
