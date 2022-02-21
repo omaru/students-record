@@ -13,7 +13,6 @@ tmp/
 local.properties
 .settings/
 eclise/
-.mvn/
 .loadpath
 .recommenders
 /target/
